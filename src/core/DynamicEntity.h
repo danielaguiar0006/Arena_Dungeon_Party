@@ -16,7 +16,6 @@ protected:
     Vector2 velocity{0.0f, 0.0f};
 
     // void CheckCollision(const Rectangle &other); //TODO: Implement this
-    void UpdateHitBox();
     void ApplyMovement(Vector2 targetVelocity, float acceleration, float deltaTime);
     void ApplyFriction(float frictionAdjustment, float deltaTime);
     float CaclulateApproachDelta(float current, float target, float maxDelta);

@@ -36,9 +36,11 @@ private:
     void SetState(PlayerState newState);
 
     void Dash(Vector2 inputDirection);
-    float dashAcceleration = 600.0f;
+    float dashAcceleration = 6000.0f;
     float lastDashTimeSec = 0.0f;
     float dashCooldownSec = 1.0f;
     float dashDurationSec = 0.25f;
     Vector2 targetDashVelocity = {0.0f, 0.0f};
+
+    Texture2D playerTexture;
 };

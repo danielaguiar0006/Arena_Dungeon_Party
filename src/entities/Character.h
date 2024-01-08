@@ -40,8 +40,8 @@ protected:
     bool isHostile{true};
     float health{100.0f};
     float maxHealth{200.0f};
-    float walkAcceleration = 200.0f;
-    float runAcceleration = 400.0f;
+    float walkAcceleration = 2000.0f;
+    float runAcceleration = 4000.0f;
     float maxWalkSpeed = 200.0f;
     float maxRunSpeed = 400.0f;
     float baseAttackDamage = 20.0f;

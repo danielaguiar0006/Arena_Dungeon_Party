@@ -1,11 +1,5 @@
 #include "DynamicEntity.h"
 
-void DynamicEntity::UpdateHitBox()
-{
-    hitBox.x = position.x - (hitBox.width / 2.0f);
-    hitBox.y = position.y - (hitBox.height / 2.0f);
-}
-
 void DynamicEntity::ApplyMovement(Vector2 targetVelocity, float acceleration, float deltaTime)
 {
     velocity.x = CaclulateApproachDelta(velocity.x, targetVelocity.x, acceleration * deltaTime);

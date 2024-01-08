@@ -1,19 +1,10 @@
 #include "Player.h"
 
-// TODO: Implement Player class
 Player::Player()
 {
-
-    hitBox.width = 32.0f;
-    hitBox.height = 32.0f;
-
-    walkAcceleration = 2000.0f;
-    runAcceleration = 4000.0f;
-    dashAcceleration = 6000.0f;
-    maxWalkSpeed = 200.0f;
-    maxRunSpeed = 400.0f;
-    baseAttackDamage = 20.0f;
-    attackRange = 50.0f;
+    hitBox.width = TILE_WIDTH * SCALE_FACTOR;
+    hitBox.height = TILE_WIDTH * SCALE_FACTOR;
+    playerTexture = LoadTexture("assets/textures/wall.png");
 }
 /*
 Player::~Player()
@@ -26,12 +17,9 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-    /*     std::cout << "Player position: " << position.x << ", " << position.y << std::endl;
-        std::cout << "Player velocity: " << velocity.x << ", " << velocity.y << std::endl;
-        std::cout << "Player state: " << GetCurrentState(currentState) << std::endl; */
+    std::cout << "Player position: " << position.x << ", " << position.y << std::endl;
     UpdateCooldowns(deltaTime);
     Vector2 inputDirection = HandleInputs();
-    std::cout << Vector2Length(inputDirection) << std::endl;
 
     switch (currentState) // *While in this state, do this:*
     {
@@ -91,7 +79,9 @@ void Player::Update(float deltaTime)
 
 void Player::Draw() const
 {
-    DrawRectangleRec(hitBox, GRAY);
+    /*     DrawRectangleRec(hitBox, WHITE); */
+    /*     DrawTexture(playerTexture, position.x, position.y, WHITE); */
+    DrawTextureEx(playerTexture, position, 0.0f, SCALE_FACTOR, WHITE);
 }
 
 std::string Player::GetCurrentState(PlayerState state) const
