@@ -8,19 +8,20 @@
 #include "raymath.h"
 #include "utils/Globals.h"
 #include "entities/Player.h"
+#include "utils/Grid.h"
 // #include "core/Entity.h"
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition
 //----------------------------------------------------------------------------------
-int screenWidth = 800;
-int screenHeight = 450;
+int screenWidth = SCREEN_WIDTH;
+int screenHeight = SCREEN_HEIGHT;
 
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
 void Update(Player &player1);
-void DrawFrame(Camera2D camera, Player &player1);
+void DrawFrame(Camera2D camera, Player &player1, Grid &grid);
 
 //----------------------------------------------------------------------------------
 // Main Entry Point
@@ -39,13 +40,14 @@ int main()
     camera.zoom = 1.0f;
 
     Player player1;
+    Grid grid;
     //--------------------------------------------------------------------------------------
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         Update(player1);
-        DrawFrame(camera, player1);
+        DrawFrame(camera, player1, grid);
     }
 
     // De-Initialization
@@ -65,13 +67,14 @@ void Update(Player &player1)
     player1.Update(deltaTime);
 }
 
-void DrawFrame(Camera2D camera, Player &player1)
+void DrawFrame(Camera2D camera, Player &player1, Grid &grid)
 {
     BeginDrawing();
     /*     ClearBackground(RAYWHITE); */
     ClearBackground(BACKGROUND_COLOR);
 
     BeginMode2D(camera);
+    grid.Draw();
     player1.Draw();
     EndMode2D();
 

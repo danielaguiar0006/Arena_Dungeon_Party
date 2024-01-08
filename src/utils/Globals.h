@@ -7,3 +7,5 @@ extern float FRICTION_FACTOR;
 extern Color BACKGROUND_COLOR;
 extern const int TILE_WIDTH;
 extern const int SCALE_FACTOR;
+extern const int SCREEN_WIDTH;
+extern const int SCREEN_HEIGHT;
