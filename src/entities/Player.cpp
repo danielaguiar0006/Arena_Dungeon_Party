@@ -19,7 +19,7 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-    std::cout << "Player position: " << position.x << ", " << position.y << std::endl;
+    /*     std::cout << "Player position: " << position.x << ", " << position.y << std::endl; */
     UpdateCooldowns(deltaTime);
     Vector2 inputDirection = HandleInputs();
 

@@ -64,13 +64,19 @@ int main()
 //----------------------------------------------------------------------------------
 void Update(WindowManager &windowManager, Camera2D &camera, Player &player1)
 {
-    camera.zoom = CAMERA_ZOOM_FACTOR;
+    windowManager.Update(camera);
+    // camera.zoom = CAMERA_ZOOM_FACTOR;
     float deltaTime = GetFrameTime() * TIMESCALE;
+
     player1.Update(deltaTime);
 
     if (IsKeyPressed(KEY_F))
     {
         windowManager.Fullscreen(camera);
+    }
+    if (IsKeyPressed(KEY_G))
+    {
+        windowManager.Unfullscreen(camera);
     }
 }
 
