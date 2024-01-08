@@ -2,18 +2,20 @@
 
 Player::Player()
 {
-    hitBox.width = TILE_WIDTH * SCALE_FACTOR;
-    hitBox.height = TILE_WIDTH * SCALE_FACTOR;
+    hitBox.width = TILE_WIDTH * TILE_SCALE_FACTOR;
+    hitBox.height = TILE_WIDTH * TILE_SCALE_FACTOR;
     playerTexture = LoadTexture("assets/textures/wall.png");
 }
-/*
+
 Player::~Player()
 {
     // Cleanup code here
     // Example: If Player had dynamically allocated memory or loaded textures
     // delete myPointer;
     // UnloadTexture(myTexture);
-} */
+
+    UnloadTexture(playerTexture);
+}
 
 void Player::Update(float deltaTime)
 {
@@ -81,7 +83,7 @@ void Player::Draw() const
 {
     /*     DrawRectangleRec(hitBox, WHITE); */
     /*     DrawTexture(playerTexture, position.x, position.y, WHITE); */
-    DrawTextureEx(playerTexture, position, 0.0f, SCALE_FACTOR, WHITE);
+    DrawTextureEx(playerTexture, position, 0.0f, TILE_SCALE_FACTOR, WHITE);
 }
 
 std::string Player::GetCurrentState(PlayerState state) const

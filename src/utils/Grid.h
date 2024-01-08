@@ -6,12 +6,15 @@ class Grid
 {
 public:
     Grid();
+    ~Grid();
     void Draw();
     Vector2 GetGridCount();
 
 private:
     Texture2D gridTexture;
-    int gridWidth = SCREEN_WIDTH / TILE_WIDTH;
-    int gridHeight = SCREEN_HEIGHT / TILE_WIDTH;
+    int gridWidth;
+    int gridHeight;
+
+    void UpdateGridCount();
     /*     int grid[GRID_WIDTH][GRID_HEIGHT]; */
 };

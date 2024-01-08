@@ -18,7 +18,7 @@ public:
     };
 
     Player();
-    virtual ~Player() = default;
+    virtual ~Player();
 
     void Update(float deltaTime) override;
     void Draw() const override;

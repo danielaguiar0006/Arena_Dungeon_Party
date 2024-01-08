@@ -4,24 +4,23 @@
  *
  ********************************************************************************************/
 
+#include <iostream>
 #include "raylib.h"
 #include "raymath.h"
 #include "utils/Globals.h"
 #include "entities/Player.h"
 #include "utils/Grid.h"
-// #include "core/Entity.h"
+#include "core/WindowManager.h" // ? should maybe be in utils/ instead ?
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition
 //----------------------------------------------------------------------------------
-int screenWidth = SCREEN_WIDTH;
-int screenHeight = SCREEN_HEIGHT;
 
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-void Update(Player &player1);
-void DrawFrame(Camera2D camera, Player &player1, Grid &grid);
+void Update(WindowManager &windowManager, Camera2D &camera, Player &player1);
+void DrawFrame(Camera2D &camera, Player &player1, Grid &grid);
 
 //----------------------------------------------------------------------------------
 // Main Entry Point
@@ -30,15 +29,17 @@ int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "raylib [core] example - basic window");
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+    // SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE); // Doesn't seem to work
 
     Camera2D camera = {0};
     camera.target = {0.0f, 0.0f};
     camera.offset = {0.0f, 0.0f};
     camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
+    camera.zoom = CAMERA_ZOOM_FACTOR;
 
+    WindowManager windowManager;
     Player player1;
     Grid grid;
     //--------------------------------------------------------------------------------------
@@ -46,7 +47,7 @@ int main()
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        Update(player1);
+        Update(windowManager, camera, player1);
         DrawFrame(camera, player1, grid);
     }
 
@@ -61,19 +62,27 @@ int main()
 //----------------------------------------------------------------------------------
 // Module Functions Definition
 //----------------------------------------------------------------------------------
-void Update(Player &player1)
+void Update(WindowManager &windowManager, Camera2D &camera, Player &player1)
 {
+    camera.zoom = CAMERA_ZOOM_FACTOR;
     float deltaTime = GetFrameTime() * TIMESCALE;
     player1.Update(deltaTime);
+
+    if (IsKeyPressed(KEY_F))
+    {
+        windowManager.Fullscreen(camera);
+    }
 }
 
-void DrawFrame(Camera2D camera, Player &player1, Grid &grid)
+void DrawFrame(Camera2D &camera, Player &player1, Grid &grid)
 {
     BeginDrawing();
     /*     ClearBackground(RAYWHITE); */
     ClearBackground(BACKGROUND_COLOR);
 
     BeginMode2D(camera);
+    camera.target = player1.GetPosition();
+    camera.offset = {WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f};
     grid.Draw();
     player1.Draw();
     EndMode2D();
