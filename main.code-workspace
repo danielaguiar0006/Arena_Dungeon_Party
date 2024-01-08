@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"raylib.h": "cpp",
+			"math.h": "cpp",
+			"blocks.h": "cpp",
+			"stdio.h": "cpp",
+			"*.m": "cpp"
+		}
+	}
+}
