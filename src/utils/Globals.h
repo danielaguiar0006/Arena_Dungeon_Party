@@ -10,5 +10,5 @@ extern const int TILE_SCALE_FACTOR;
 extern float CAMERA_ZOOM_FACTOR;
 extern bool FULLSCREEN;
 extern bool RELATIVE_CAMERA_ZOOM;
-extern int WINDOW_WIDTH;
-extern int WINDOW_HEIGHT;
+extern int INIT_WINDOW_WIDTH;
+extern int INIT_WINDOW_HEIGHT;

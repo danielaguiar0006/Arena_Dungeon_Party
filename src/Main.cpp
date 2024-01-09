@@ -10,7 +10,7 @@
 #include "utils/Globals.h"
 #include "entities/Player.h"
 #include "utils/Grid.h"
-#include "core/WindowManager.h" // ? should maybe be in utils/ instead ?
+#include "utils/WindowManager.h" // ? should maybe be in utils/ instead ?
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition
@@ -29,7 +29,7 @@ int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "raylib [core] example - basic window");
+    InitWindow(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT, "raylib [core] example - basic window");
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     // SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE); // Doesn't seem to work
 
@@ -69,15 +69,6 @@ void Update(WindowManager &windowManager, Camera2D &camera, Player &player1)
     float deltaTime = GetFrameTime() * TIMESCALE;
 
     player1.Update(deltaTime);
-
-    if (IsKeyPressed(KEY_F))
-    {
-        windowManager.Fullscreen(camera);
-    }
-    if (IsKeyPressed(KEY_G))
-    {
-        windowManager.Unfullscreen(camera);
-    }
 }
 
 void DrawFrame(Camera2D &camera, Player &player1, Grid &grid)
@@ -88,7 +79,7 @@ void DrawFrame(Camera2D &camera, Player &player1, Grid &grid)
 
     BeginMode2D(camera);
     camera.target = player1.GetPosition();
-    camera.offset = {WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f};
+    camera.offset = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     grid.Draw();
     player1.Draw();
     EndMode2D();

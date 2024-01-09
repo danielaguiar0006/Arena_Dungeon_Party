@@ -19,7 +19,6 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-    /*     std::cout << "Player position: " << position.x << ", " << position.y << std::endl; */
     UpdateCooldowns(deltaTime);
     Vector2 inputDirection = HandleInputs();
 
@@ -114,7 +113,6 @@ void Player::SetState(PlayerState newState)
     if (currentState == newState)
         return;
 
-    /*     std::cout << "Player state changed from " << GetCurrentState(currentState) << " to " << GetCurrentState(newState) << std::endl; */
     currentState = newState;
 }
 
