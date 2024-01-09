@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "../utils/Logger.h"
 
 Player::Player()
 {
@@ -19,6 +20,8 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+    // Logger::Log("Player pixelposition: " + std::to_string(pixelPosition.x) + ", " + std::to_string(pixelPosition.y) + "\n");
+    Logger::Log("Player gridposition: " + std::to_string(gridPosition.x) + ", " + std::to_string(gridPosition.y) + "\n");
     UpdateCooldowns(deltaTime);
     Vector2 inputDirection = HandleInputs();
 
@@ -73,16 +76,15 @@ void Player::Update(float deltaTime)
         }
     }
 
-    ApplyFriction(1000.0f, deltaTime);                                  // TODO: switch friction Adjustment literal to a global variable.
-    position = Vector2Add(position, Vector2Scale(velocity, deltaTime)); // Update the position based on the velocity
-    UpdateHitBox();
+    ApplyFriction(1000.0f, deltaTime); // TODO: switch friction Adjustment literal to a global variable.
+    SetPixelPosition(Vector2Add(pixelPosition, Vector2Scale(velocity, deltaTime)));
 }
 
 void Player::Draw() const
 {
     /*     DrawRectangleRec(hitBox, WHITE); */
-    /*     DrawTexture(playerTexture, position.x, position.y, WHITE); */
-    DrawTextureEx(playerTexture, position, 0.0f, TILE_SCALE_FACTOR, WHITE);
+    /*     DrawTexture(playerTexture, pixelPosition.x, pixelPosition.y, WHITE); */
+    DrawTextureEx(playerTexture, pixelPosition, 0.0f, TILE_SCALE_FACTOR, WHITE);
 }
 
 std::string Player::GetCurrentState(PlayerState state) const

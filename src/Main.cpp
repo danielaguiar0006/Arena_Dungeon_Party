@@ -78,7 +78,7 @@ void DrawFrame(Camera2D &camera, Player &player1, Grid &grid)
     ClearBackground(BACKGROUND_COLOR);
 
     BeginMode2D(camera);
-    camera.target = player1.GetPosition();
+    camera.target = player1.GetPixelPosition();
     camera.offset = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     grid.Draw();
     player1.Draw();

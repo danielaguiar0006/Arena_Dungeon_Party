@@ -24,7 +24,7 @@ float DynamicEntity::CaclulateApproachDelta(float current, float target, float m
 
 bool DynamicEntity::IsWithinRange(const Vector2 &targetPosition, float rangeRadius) const
 {
-    float distanceToTarget = Vector2Distance(position, targetPosition);
+    float distanceToTarget = Vector2Distance(pixelPosition, targetPosition);
     if (distanceToTarget <= rangeRadius)
         return true;
     else
