@@ -5,7 +5,9 @@ Player::Player()
 {
     hitBox.width = TILE_WIDTH * TILE_SCALE_FACTOR;
     hitBox.height = TILE_WIDTH * TILE_SCALE_FACTOR;
-    playerTexture = LoadTexture("assets/textures/wall.png");
+    playerTexture = LoadTexture("assets/textures/player.png");
+    SetTextureWrap(playerTexture, TEXTURE_WRAP_CLAMP);
+    SetTextureFilter(playerTexture, TEXTURE_FILTER_POINT);
 }
 
 Player::~Player()
@@ -82,8 +84,6 @@ void Player::Update(float deltaTime)
 
 void Player::Draw() const
 {
-    /*     DrawRectangleRec(hitBox, WHITE); */
-    /*     DrawTexture(playerTexture, pixelPosition.x, pixelPosition.y, WHITE); */
     DrawTextureEx(playerTexture, pixelPosition, 0.0f, TILE_SCALE_FACTOR, WHITE);
 }
 
