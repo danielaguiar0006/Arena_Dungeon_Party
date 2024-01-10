@@ -5,7 +5,7 @@
 class Character : public DynamicEntity
 {
 public:
-    Character() = default;
+    Character(const std::string &textureFilePath);
     virtual ~Character() = default;
 
     virtual void Update(float deltaTime) = 0;

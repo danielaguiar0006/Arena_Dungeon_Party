@@ -2,12 +2,14 @@
 
 #include "raylib.h"
 #include "string"
+#include "../utils/TextureManager.h"
 #include "../utils/Globals.h"
+#include "../utils/Logger.h"
 
 class Entity
 {
 public:
-    Entity() : id(nextID++) {}
+    Entity(const std::string &textureFilePath);
     virtual ~Entity() = default;
     int GetID() const { return id; } // Getter for entity's ID
 
@@ -30,6 +32,8 @@ protected:
     Vector2 gridPosition{0.0f, 0.0f};
     Vector2 centerOrigin{0.0f, 0.0f};
     Rectangle hitBox{0.0f, 0.0f, 0.0f, 0.0f}; // Hitbox origin is at the top left corner
+    std::string textureFilePath;
+    std::shared_ptr<Texture2D> texture;
     void UpdateHitBox();
     void UpdateGridPosition();
 

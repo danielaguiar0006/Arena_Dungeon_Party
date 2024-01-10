@@ -2,11 +2,19 @@
 
 int Entity::nextID = 0; // Initialize static member variable
 
+Entity::Entity(const std::string &textureFilePath) : id(nextID++), texture(TextureManager::GetInstance().GetTexture(textureFilePath))
+{
+    if (nextID == INT_MAX)
+    {
+        Logger::Error("Too many entities in the game!");
+        exit(1);
+    }
+}
+
 void Entity::SetPixelPosition(const Vector2 &pos)
 {
     pixelPosition = pos;
     UpdateHitBox();
-    UpdateGridPosition();
 }
 
 void Entity::SetGridPosition(const Vector2 &pos)
@@ -23,6 +31,7 @@ void Entity::UpdateHitBox()
     hitBox.y = pixelPosition.y;
     centerOrigin.x = pixelPosition.x - (hitBox.width / 2.0f);
     centerOrigin.y = pixelPosition.y - (hitBox.height / 2.0f);
+    UpdateGridPosition();
 }
 
 void Entity::UpdateGridPosition()

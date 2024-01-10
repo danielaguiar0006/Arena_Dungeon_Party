@@ -1,5 +1,11 @@
 #include "DynamicEntity.h"
 
+extern TextureManager textureManager; // Assume this is defined in main.cpp
+
+DynamicEntity::DynamicEntity(const std::string &textureFilePath) : Entity(textureFilePath)
+{
+}
+
 void DynamicEntity::ApplyMovement(Vector2 targetVelocity, float acceleration, float deltaTime)
 {
     velocity.x = CaclulateApproachDelta(velocity.x, targetVelocity.x, acceleration * deltaTime);

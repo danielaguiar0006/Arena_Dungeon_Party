@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Character.h"
-#include <iostream>
 
 class Player : public Character
 {
@@ -17,7 +16,7 @@ public:
         Dying
     };
 
-    Player();
+    Player(const std::string &textureFilename);
     virtual ~Player();
 
     void Update(float deltaTime) override;
@@ -41,6 +40,4 @@ private:
     float dashCooldownSec = 1.0f;
     float dashDurationSec = 0.25f;
     Vector2 targetDashVelocity = {0.0f, 0.0f};
-
-    Texture2D playerTexture;
 };

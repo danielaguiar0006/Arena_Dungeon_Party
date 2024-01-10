@@ -1,13 +1,10 @@
 #include "Player.h"
-#include "../utils/Logger.h"
 
-Player::Player()
+Player::Player(const std::string &texture_file_path) : Character(texture_file_path)
 {
+    textureFilePath = texture_file_path;
     hitBox.width = TILE_WIDTH * TILE_SCALE_FACTOR;
     hitBox.height = TILE_WIDTH * TILE_SCALE_FACTOR;
-    playerTexture = LoadTexture("assets/textures/player.png");
-    SetTextureWrap(playerTexture, TEXTURE_WRAP_CLAMP);
-    SetTextureFilter(playerTexture, TEXTURE_FILTER_POINT);
 }
 
 Player::~Player()
@@ -17,13 +14,14 @@ Player::~Player()
     // delete myPointer;
     // UnloadTexture(myTexture);
 
-    UnloadTexture(playerTexture);
+    TextureManager::RemoveTexture(textureFilePath);
 }
 
 void Player::Update(float deltaTime)
 {
     // Logger::Log("Player pixelposition: " + std::to_string(pixelPosition.x) + ", " + std::to_string(pixelPosition.y) + "\n");
-    Logger::Log("Player gridposition: " + std::to_string(gridPosition.x) + ", " + std::to_string(gridPosition.y) + "\n");
+    // Logger::Log("Player gridposition: " + std::to_string(gridPosition.x) + ", " + std::to_string(gridPosition.y) + "\n");
+    CheckHealth();
     UpdateCooldowns(deltaTime);
     Vector2 inputDirection = HandleInputs();
 
@@ -84,7 +82,7 @@ void Player::Update(float deltaTime)
 
 void Player::Draw() const
 {
-    DrawTextureEx(playerTexture, pixelPosition, 0.0f, TILE_SCALE_FACTOR, WHITE);
+    DrawTextureEx(*texture, pixelPosition, 0.0f, TILE_SCALE_FACTOR, WHITE);
 }
 
 std::string Player::GetCurrentState(PlayerState state) const
@@ -180,10 +178,7 @@ void Player::Attack(Character *target)
 
 void Player::TakeDamage(float damageAmount)
 {
-    int x = 0;
-    int y = 0;
-    if (x = y)
-        x = 1;
+    health -= damageAmount;
 }
 
 void Player::Die()
