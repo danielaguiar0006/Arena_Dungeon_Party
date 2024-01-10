@@ -34,10 +34,10 @@ std::shared_ptr<Texture2D> TextureManager::GetTexture(const std::string &texture
         textures[textureFilePath] = texture;
 
         // for debugging output every texture loaded inside textures map
-        /* for (auto &texture : textures)
-                {
-                    Logger::Info(texture.first);
-                } */
+        for (auto &texture : textures)
+        {
+            Logger::Info(texture.first);
+        }
 
         // Set the texture parameters
         ApplyTextureParameters(*textures[textureFilePath]);
@@ -47,6 +47,7 @@ std::shared_ptr<Texture2D> TextureManager::GetTexture(const std::string &texture
             //! throw std::runtime_error("Failed to load texture: " + textureFilePath);
 
             Logger::Error("Failed to load texture: " + textureFilePath);
+            textures.erase(textureFilePath);
             LoadDefaultTexture();
 
             return defaultTexture;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Globals.h"
+#include "TextureManager.h"
 
 class Grid
 {

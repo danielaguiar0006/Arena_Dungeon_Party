@@ -11,3 +11,5 @@ public:
 protected:
     bool isCollidable{true};
 };
+
+// TODO: FINISH AND IMPLEMENT THIS

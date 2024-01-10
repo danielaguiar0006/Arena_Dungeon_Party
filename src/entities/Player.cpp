@@ -14,7 +14,7 @@ Player::~Player()
     // delete myPointer;
     // UnloadTexture(myTexture);
 
-    TextureManager::RemoveTexture(textureFilePath);
+    TextureManager::GetInstance().RemoveTexture(textureFilePath);
 }
 
 void Player::Update(float deltaTime)

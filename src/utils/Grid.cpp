@@ -4,7 +4,8 @@
 
 Grid::Grid()
 {
-    gridTexture = LoadTexture("assets/textures/grid.png");
+    // gridTexture = LoadTexture("assets/textures/grid.png");
+    gridTexture = *TextureManager::GetInstance().GetTexture("assets/textures/grid.png");
 
     // Perform multiplication first and division last to avoid precision loss
     gridWidth = static_cast<int>((GetScreenWidth() / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
@@ -13,7 +14,8 @@ Grid::Grid()
 
 Grid::~Grid()
 {
-    UnloadTexture(gridTexture);
+    // UnloadTexture(gridTexture);
+    TextureManager::GetInstance().RemoveTexture("assets/textures/grid.png");
 }
 
 void Grid::Draw()
