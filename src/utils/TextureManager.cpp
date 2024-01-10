@@ -1,5 +1,6 @@
 #include "TextureManager.h"
 
+// Static Member Initialization
 std::shared_ptr<Texture2D> TextureManager::defaultTexture = nullptr;
 std::map<std::string, std::shared_ptr<Texture2D>> TextureManager::textures;
 std::mutex TextureManager::mutex;
@@ -14,8 +15,10 @@ std::mutex TextureManager::mutex;
  */
 std::shared_ptr<Texture2D> TextureManager::GetTexture(const std::string &textureFilePath)
 {
+    // Lock the mutex to ensure thread safety
     std::lock_guard<std::mutex> lock(mutex);
 
+    // If the texture filename is empty, load the default texture
     if (textureFilePath.empty())
     {
         Logger::Error("Texture filename is empty!");
@@ -23,7 +26,6 @@ std::shared_ptr<Texture2D> TextureManager::GetTexture(const std::string &texture
 
         return defaultTexture;
     }
-
     // If the texture is not already loaded, load it
     else if (textures.count(textureFilePath) == 0)
     {
@@ -34,14 +36,15 @@ std::shared_ptr<Texture2D> TextureManager::GetTexture(const std::string &texture
         textures[textureFilePath] = texture;
 
         // for debugging output every texture loaded inside textures map
-        for (auto &texture : textures)
+        /*for (auto &texture : textures)
         {
             Logger::Info(texture.first);
-        }
+        }*/
 
         // Set the texture parameters
         ApplyTextureParameters(*textures[textureFilePath]);
 
+        // If the texture failed to load, remove it from the map and load the default texture
         if (texture->id <= 0)
         {
             //! throw std::runtime_error("Failed to load texture: " + textureFilePath);
@@ -64,6 +67,7 @@ std::shared_ptr<Texture2D> TextureManager::GetTexture(const std::string &texture
 
 void TextureManager::RemoveTexture(const std::string &textureFilePath)
 {
+    // Lock the mutex to ensure thread safety
     std::lock_guard<std::mutex> lock(mutex);
 
     auto it = textures.find(textureFilePath);
@@ -85,6 +89,7 @@ void TextureManager::RemoveTexture(const std::string &textureFilePath)
 
 void TextureManager::ForceRemoveTexture(const std::string &textureFilePath)
 {
+    // Lock the mutex to ensure thread safety
     std::lock_guard<std::mutex> lock(mutex);
 
     auto it = textures.find(textureFilePath);
@@ -96,8 +101,10 @@ void TextureManager::ForceRemoveTexture(const std::string &textureFilePath)
         textures.erase(it);
     }
 }
+
 void TextureManager::UnloadAllTextures()
 {
+    // Force remove all textures
     for (auto &texture : textures)
     {
         ForceRemoveTexture(texture.first);
@@ -105,6 +112,7 @@ void TextureManager::UnloadAllTextures()
 
     textures.clear();
 
+    // Unload the default texture if it exits
     if (defaultTexture != nullptr)
     {
         ::UnloadTexture(*defaultTexture.get());
@@ -114,15 +122,27 @@ void TextureManager::UnloadAllTextures()
 
 void TextureManager::LoadDefaultTexture()
 {
-    if (defaultTexture == nullptr) // If the default texture is not loaded, load it
+    // std::lock_guard<std::mutex> lock(mutex); // ! This causes a deadlock
+
+    // If the default texture is not loaded, load it
+    if (defaultTexture == nullptr)
     {
-        defaultTexture = std::make_shared<Texture2D>(LoadTexture("assets/textures/default.png"));
+        Texture2D texture = LoadTexture("assets/textures/default.png");
+        if (texture.id <= 0)
+        {
+            Logger::Error("Failed to load default texture");
+            // Handle the error (e.g., stop the program, load a different texture, etc.)
+            return;
+        }
+
+        defaultTexture = std::make_shared<Texture2D>(texture);
         ApplyTextureParameters(*defaultTexture);
     }
 }
 
 void TextureManager::ApplyTextureParameters(Texture2D &texture)
 {
+    // Set the texture wrap and filter parameters
     SetTextureWrap(texture, TEXTURE_WRAP_CLAMP);
     SetTextureFilter(texture, TEXTURE_FILTER_POINT);
 }
