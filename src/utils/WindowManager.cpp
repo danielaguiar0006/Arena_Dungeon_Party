@@ -1,7 +1,6 @@
 #include "WindowManager.h"
 
 // TODO: currently the code is under the bad assumption that the window size is always 16:9
-// TODO: possible make into a singleton
 
 void WindowManager::Update(Camera2D &camera)
 {
@@ -35,20 +34,14 @@ void WindowManager::Update(Camera2D &camera)
         camera.zoom = CAMERA_ZOOM_FACTOR;
     }
 
-    if (GetScreenWidth() != WINDOW_WIDTH || GetScreenHeight() != WINDOW_HEIGHT) // ! GetScreenWidth() and GetScreenHeight() max out at screen/s physical resoultion not game/viewport size
-    {
-        ChangeWindowSize(WindowResolution(WINDOW_WIDTH, WINDOW_HEIGHT));
-    }
+    /*     if (GetScreenWidth() != WINDOW_WIDTH || GetScreenHeight() != WINDOW_HEIGHT) // ! GetScreenWidth() and GetScreenHeight() max out at screen/s physical resoultion not game/viewport size
+        {
+            ChangeWindowSize(WindowResolution(WINDOW_WIDTH, WINDOW_HEIGHT));
+        } */
 }
 
 void WindowManager::ChangeWindowSize(WindowResolution resolution)
 {
-    /*     if (FULLSCREEN == true)
-        {
-            FULLSCREEN = false;
-            ToggleBorderlessWindowed();
-        } */
-
     if (resolution.width == WINDOW_WIDTH && resolution.height == WINDOW_HEIGHT)
     {
         return;

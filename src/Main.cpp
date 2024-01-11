@@ -19,7 +19,7 @@
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-void Update(WindowManager &windowManager, Camera2D &camera, Player &player1, Player &player2, Grid &grid);
+void Update(Camera2D &camera, Player &player1, Player &player2, Grid &grid);
 void DrawFrame(Camera2D &camera, Player &player1, Player &player2, Grid &grid);
 
 //----------------------------------------------------------------------------------
@@ -44,7 +44,6 @@ int main()
     camera.rotation = 0.0f;
     camera.zoom = CAMERA_ZOOM_FACTOR;
 
-    WindowManager windowManager;
     Player player1("assets/textures/player.png");
     Player player2("assets/textures/playet.png");
     Grid grid;
@@ -53,7 +52,7 @@ int main()
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        Update(windowManager, camera, player1, player2, grid);
+        Update(camera, player1, player2, grid);
         DrawFrame(camera, player1, player2, grid);
     }
 
@@ -69,10 +68,10 @@ int main()
 //----------------------------------------------------------------------------------
 // Module Functions Definition
 //----------------------------------------------------------------------------------
-void Update(WindowManager &windowManager, Camera2D &camera, Player &player1, Player &player2, Grid &grid) // TODO UPDATE TO TAKE ENTITY LIST AS PARAMETER
+void Update(Camera2D &camera, Player &player1, Player &player2, Grid &grid) // TODO UPDATE TO TAKE ENTITY LIST AS PARAMETER
 {
+    WindowManager::GetInstance().Update(camera);
     grid.Update();
-    windowManager.Update(camera);
     float deltaTime = GetFrameTime() * TIMESCALE;
 
     player1.Update(deltaTime);

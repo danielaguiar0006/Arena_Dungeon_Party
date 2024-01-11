@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include <vector>
 
+// *Singleton class*
 class WindowManager
 {
 public:
@@ -36,7 +37,15 @@ public:
         WindowResolution(7680, 4320)  // 6.0f (8K)
     };
 
-    WindowManager() = default;
+    static WindowManager &GetInstance()
+    {
+        static WindowManager instance; // Guaranteed to be destroyed.
+                                       // Instantiated on first use.
+        return instance;
+    }
+    WindowManager(WindowManager const &) = delete;  // Don't Implement
+    void operator=(WindowManager const &) = delete; // Don't implement
+
     void Update(Camera2D &camera);
     void ChangeWindowSize(WindowResolution resolution);
     void Fullscreen();
@@ -45,4 +54,5 @@ public:
     void CycleResolutionBackwards();
 
 private:
+    WindowManager() = default;
 };
