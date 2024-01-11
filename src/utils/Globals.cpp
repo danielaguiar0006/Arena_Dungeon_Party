@@ -9,6 +9,6 @@ const int TILE_WIDTH = 16;
 const int TILE_SCALE_FACTOR = 2;
 float CAMERA_ZOOM_FACTOR = 1.0f;
 bool RELATIVE_CAMERA_ZOOM = true;
-bool FULLSCREEN = false;
+bool IS_FULLSCREEN = false;
 int WINDOW_WIDTH = 1280;
 int WINDOW_HEIGHT = 720;

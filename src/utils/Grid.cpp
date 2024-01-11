@@ -1,7 +1,5 @@
 #include "Grid.h"
 
-// TODO: fix grid not being drawn correctly on higher window resolutions
-
 Grid::Grid()
 {
     gridTexture = *TextureManager::GetInstance().GetTexture("assets/textures/grid.png");

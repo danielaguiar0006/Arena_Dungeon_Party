@@ -30,7 +30,7 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
 endif()
 
 # Our Project
-set(SOURCE_FILES src/Main.cpp src/core/Entity.cpp src/core/StaticEntity.cpp src/core/DynamicEntity.cpp src/entities/Character.cpp src/entities/Player.cpp src/utils/Globals.cpp  src/utils/WindowManager.cpp src/utils/TextureManager.cpp src/utils/Logger.cpp src/utils/Grid.cpp) # Add other source files as needed
+set(SOURCE_FILES src/Main.cpp src/core/Entity.cpp src/core/StaticEntity.cpp src/core/DynamicEntity.cpp src/entities/dynamic/Character.cpp src/entities/dynamic/Player.cpp src/utils/Globals.cpp  src/utils/WindowManager.cpp src/utils/TextureManager.cpp src/utils/Logger.cpp src/utils/Grid.cpp) # Add other source files as needed
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)

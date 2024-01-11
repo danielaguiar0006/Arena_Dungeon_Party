@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character(const std::string &textureFilePath) : DynamicEntity(textureFilePath)
+Character::Character(const std::string &texture_file_path) : DynamicEntity(texture_file_path)
 {
 }
 

@@ -2,7 +2,7 @@
 
 int Entity::nextID = 0; // Initialize static member variable
 
-Entity::Entity(const std::string &textureFilePath) : id(nextID++), texture(TextureManager::GetInstance().GetTexture(textureFilePath))
+Entity::Entity(const std::string &texture_file_path) : id(nextID++), texture(TextureManager::GetInstance().GetTexture(texture_file_path))
 {
     if (nextID == INT_MAX)
     {

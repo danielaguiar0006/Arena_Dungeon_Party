@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../core/DynamicEntity.h"
+#include "../../core/DynamicEntity.h"
 
 class Character : public DynamicEntity
 {
 public:
-    Character(const std::string &textureFilePath);
+    Character(const std::string &texture_file_path);
     virtual ~Character() = default;
 
     virtual void Update(float deltaTime) = 0;

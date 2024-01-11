@@ -2,7 +2,7 @@
 
 extern TextureManager textureManager; // Assume this is defined in main.cpp
 
-DynamicEntity::DynamicEntity(const std::string &textureFilePath) : Entity(textureFilePath)
+DynamicEntity::DynamicEntity(const std::string &texture_file_path) : Entity(texture_file_path)
 {
 }
 

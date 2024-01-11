@@ -5,7 +5,7 @@
  ********************************************************************************************/
 
 #include "raylib.h"
-#include "entities/Player.h"
+#include "entities/dynamic/Player.h"
 #include "utils/TextureManager.h"
 #include "utils/WindowManager.h"
 #include "utils/Globals.h"
@@ -19,8 +19,8 @@
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-void Update(Camera2D &camera, Player &player1, Player &player2, Grid &grid);
-void DrawFrame(Camera2D &camera, Player &player1, Player &player2, Grid &grid);
+void Update(Camera2D &camera, Player &player1, Grid &grid);
+void DrawFrame(Camera2D &camera, Player &player1, Grid &grid);
 
 //----------------------------------------------------------------------------------
 // Main Entry Point
@@ -52,8 +52,8 @@ int main()
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        Update(camera, player1, player2, grid);
-        DrawFrame(camera, player1, player2, grid);
+        Update(camera, player1, grid);
+        DrawFrame(camera, player1, grid);
     }
 
     // De-Initialization
@@ -68,27 +68,16 @@ int main()
 //----------------------------------------------------------------------------------
 // Module Functions Definition
 //----------------------------------------------------------------------------------
-void Update(Camera2D &camera, Player &player1, Player &player2, Grid &grid) // TODO UPDATE TO TAKE ENTITY LIST AS PARAMETER
+void Update(Camera2D &camera, Player &player1, Grid &grid) // TODO UPDATE TO TAKE ENTITY LIST AS PARAMETER
 {
     WindowManager::GetInstance().Update(camera);
     grid.Update();
     float deltaTime = GetFrameTime() * TIMESCALE;
 
     player1.Update(deltaTime);
-    player2.Update(deltaTime);
-
-    if (IsKeyPressed(KEY_E))
-    {
-        Vector2 pos = {100.0f, 100.0f};
-        player2.SetPixelPosition(pos);
-    }
-    if (IsKeyPressed(KEY_Q))
-    {
-        player2.TakeDamage(100.0f);
-    }
 }
 
-void DrawFrame(Camera2D &camera, Player &player1, Player &player2, Grid &grid)
+void DrawFrame(Camera2D &camera, Player &player1, Grid &grid)
 {
     BeginDrawing();
     ClearBackground(BACKGROUND_COLOR);
@@ -98,7 +87,6 @@ void DrawFrame(Camera2D &camera, Player &player1, Player &player2, Grid &grid)
     camera.offset = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     grid.Draw();
     player1.Draw();
-    player2.Draw();
     EndMode2D();
 
     /*     DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY); */

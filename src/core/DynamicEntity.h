@@ -6,7 +6,7 @@
 class DynamicEntity : public Entity
 {
 public:
-    DynamicEntity(const std::string &textureFilePath);
+    DynamicEntity(const std::string &texture_file_path);
     virtual ~DynamicEntity() = default;
 
     Vector2 GetVelocity() const { return velocity; }

@@ -9,7 +9,7 @@
 class Entity
 {
 public:
-    Entity(const std::string &textureFilePath);
+    Entity(const std::string &texture_file_path);
     virtual ~Entity() = default;
     int GetID() const { return id; } // Getter for entity's ID
 

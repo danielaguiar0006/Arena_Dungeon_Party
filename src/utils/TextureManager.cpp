@@ -47,7 +47,7 @@ std::shared_ptr<Texture2D> TextureManager::GetTexture(const std::string &texture
         // If the texture failed to load, remove it from the map and load the default texture
         if (texture->id <= 0)
         {
-            //! throw std::runtime_error("Failed to load texture: " + textureFilePath);
+            // throw std::runtime_error("Failed to load texture: " + textureFilePath);
 
             Logger::Error("Failed to load texture: " + textureFilePath);
             textures.erase(textureFilePath);

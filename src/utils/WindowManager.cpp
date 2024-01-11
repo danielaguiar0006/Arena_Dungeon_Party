@@ -6,7 +6,7 @@ void WindowManager::Update(Camera2D &camera)
 {
     if (IsKeyPressed(KEY_F11))
     {
-        if (FULLSCREEN)
+        if (IS_FULLSCREEN)
         {
             Unfullscreen();
         }
@@ -54,12 +54,12 @@ void WindowManager::ChangeWindowSize(WindowResolution resolution)
 
 void WindowManager::Fullscreen() // Note: Borderless
 {
-    if (FULLSCREEN == true)
+    if (IS_FULLSCREEN == true)
     {
         return;
     }
 
-    FULLSCREEN = true;
+    IS_FULLSCREEN = true;
     int monitorWidth = GetMonitorWidth(GetCurrentMonitor());
     int monitorHeight = GetMonitorHeight(GetCurrentMonitor());
 
@@ -69,12 +69,12 @@ void WindowManager::Fullscreen() // Note: Borderless
 
 void WindowManager::Unfullscreen()
 {
-    if (FULLSCREEN == false)
+    if (IS_FULLSCREEN == false)
     {
         return;
     }
 
-    FULLSCREEN = false;
+    IS_FULLSCREEN = false;
 
     ToggleBorderlessWindowed();
     ChangeWindowSize(WindowResolution(1280, 720));
