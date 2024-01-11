@@ -1,7 +1,7 @@
 #include "WindowManager.h"
-#include <iostream>
 
 // TODO: currently the code is under the bad assumption that the window size is always 16:9
+// TODO: possible make into a singleton
 
 void WindowManager::Update(Camera2D &camera)
 {
@@ -26,7 +26,7 @@ void WindowManager::Update(Camera2D &camera)
     }
 
     if (RELATIVE_CAMERA_ZOOM == true)
-        CAMERA_ZOOM_FACTOR = float(currentResolution.width) / 1280.0f; // 1280x720 is 1.0f camera zoom
+        CAMERA_ZOOM_FACTOR = float(WINDOW_WIDTH) / 1280.0f; // 1280x720 is 1.0f camera zoom
     else
         CAMERA_ZOOM_FACTOR = 1.0f;
 
@@ -35,21 +35,28 @@ void WindowManager::Update(Camera2D &camera)
         camera.zoom = CAMERA_ZOOM_FACTOR;
     }
 
-    if (GetScreenWidth() != currentResolution.width || GetScreenHeight() != currentResolution.height)
+    if (GetScreenWidth() != WINDOW_WIDTH || GetScreenHeight() != WINDOW_HEIGHT) // ! GetScreenWidth() and GetScreenHeight() max out at screen/s physical resoultion not game/viewport size
     {
-        SetWindowSize(currentResolution.width, currentResolution.height);
+        ChangeWindowSize(WindowResolution(WINDOW_WIDTH, WINDOW_HEIGHT));
     }
 }
 
 void WindowManager::ChangeWindowSize(WindowResolution resolution)
 {
-    if (FULLSCREEN == true)
+    /*     if (FULLSCREEN == true)
+        {
+            FULLSCREEN = false;
+            ToggleBorderlessWindowed();
+        } */
+
+    if (resolution.width == WINDOW_WIDTH && resolution.height == WINDOW_HEIGHT)
     {
-        FULLSCREEN = false;
-        ToggleBorderlessWindowed();
+        return;
     }
-    currentResolution = resolution;
-    SetWindowSize(currentResolution.width, currentResolution.height);
+
+    WINDOW_WIDTH = resolution.width;
+    WINDOW_HEIGHT = resolution.height;
+    SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void WindowManager::Fullscreen() // Note: Borderless
@@ -60,11 +67,11 @@ void WindowManager::Fullscreen() // Note: Borderless
     }
 
     FULLSCREEN = true;
-    currentResolution.width = GetMonitorWidth(GetCurrentMonitor());
-    currentResolution.height = GetMonitorHeight(GetCurrentMonitor());
-    SetWindowSize(currentResolution.width, currentResolution.height);
+    int monitorWidth = GetMonitorWidth(GetCurrentMonitor());
+    int monitorHeight = GetMonitorHeight(GetCurrentMonitor());
 
     ToggleBorderlessWindowed();
+    ChangeWindowSize(WindowResolution(monitorWidth, monitorHeight));
 }
 
 void WindowManager::Unfullscreen()
@@ -75,15 +82,15 @@ void WindowManager::Unfullscreen()
     }
 
     FULLSCREEN = false;
-    SetWindowSize(currentResolution.width, currentResolution.height);
 
     ToggleBorderlessWindowed();
+    ChangeWindowSize(WindowResolution(1280, 720));
 }
 
 void WindowManager::CycleResolution()
 {
     // Find the current resolution in the resolutions16x9 vector
-    auto it = std::find(resolutions16x9.begin(), resolutions16x9.end(), currentResolution);
+    auto it = std::find(resolutions16x9.begin(), resolutions16x9.end(), WindowResolution(WINDOW_WIDTH, WINDOW_HEIGHT));
 
     // If the current resolution is found and it's not the last resolution in the vector, move to the next resolution
     if (it != resolutions16x9.end() && it + 1 != resolutions16x9.end())
@@ -100,7 +107,7 @@ void WindowManager::CycleResolution()
 void WindowManager::CycleResolutionBackwards()
 {
     // Find the current resolution in the resolutions16x9 vector
-    auto it = std::find(resolutions16x9.begin(), resolutions16x9.end(), currentResolution);
+    auto it = std::find(resolutions16x9.begin(), resolutions16x9.end(), WindowResolution(WINDOW_WIDTH, WINDOW_HEIGHT));
 
     // If the current resolution is found and it's not the first resolution in the vector, move to the previous resolution
     if (it != resolutions16x9.end() && it != resolutions16x9.begin())

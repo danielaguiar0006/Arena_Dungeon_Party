@@ -9,13 +9,11 @@ public:
     Grid();
     ~Grid();
     void Draw();
-    Vector2 GetGridCount();
+    void Update();
+    Vector2 GetGridCount(); // ? Should this be a Vector2
 
 private:
     Texture2D gridTexture;
     int gridWidth;
     int gridHeight;
-
-    void UpdateGridCount();
-    /*     int grid[GRID_WIDTH][GRID_HEIGHT]; */
 };

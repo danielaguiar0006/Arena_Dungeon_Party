@@ -40,3 +40,5 @@ Thumbs.db
 # Build directory
 build/
 bin/
+
+.vscode/

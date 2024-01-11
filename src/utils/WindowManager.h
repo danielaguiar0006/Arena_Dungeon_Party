@@ -33,6 +33,7 @@ public:
         WindowResolution(1920, 1080), // 1.5f (1080p)
         WindowResolution(2560, 1440), // 2.0f (1440p)
         WindowResolution(3840, 2160), // 3.0f (4K)
+        WindowResolution(7680, 4320)  // 6.0f (8K)
     };
 
     WindowManager() = default;
@@ -44,5 +45,4 @@ public:
     void CycleResolutionBackwards();
 
 private:
-    WindowResolution currentResolution = {INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT};
 };

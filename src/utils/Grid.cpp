@@ -4,23 +4,20 @@
 
 Grid::Grid()
 {
-    // gridTexture = LoadTexture("assets/textures/grid.png");
     gridTexture = *TextureManager::GetInstance().GetTexture("assets/textures/grid.png");
 
     // Perform multiplication first and division last to avoid precision loss
-    gridWidth = static_cast<int>((GetScreenWidth() / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
-    gridHeight = static_cast<int>((GetScreenHeight() / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
+    gridWidth = static_cast<int>((WINDOW_WIDTH / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
+    gridHeight = static_cast<int>((WINDOW_HEIGHT / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
 }
 
 Grid::~Grid()
 {
-    // UnloadTexture(gridTexture);
     TextureManager::GetInstance().RemoveTexture("assets/textures/grid.png");
 }
 
 void Grid::Draw()
 {
-    UpdateGridCount(); // TODO: put it update loop instead of draw loop
     for (int x = 0; x < gridWidth; x++)
     {
         for (int y = 0; y < gridHeight; y++)
@@ -32,14 +29,14 @@ void Grid::Draw()
     }
 }
 
+void Grid::Update()
+{
+    // Update grid count based on window size and camera zoom
+    gridWidth = static_cast<int>((WINDOW_WIDTH / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
+    gridHeight = static_cast<int>((WINDOW_HEIGHT / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
+}
+
 Vector2 Grid::GetGridCount()
 {
     return Vector2{static_cast<float>(gridWidth), static_cast<float>(gridHeight)};
-}
-
-void Grid::UpdateGridCount()
-{
-    // Perform multiplication first and division last to avoid precision loss
-    gridWidth = static_cast<int>((GetScreenWidth() / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
-    gridHeight = static_cast<int>((GetScreenHeight() / CAMERA_ZOOM_FACTOR) / (TILE_WIDTH * TILE_SCALE_FACTOR));
 }

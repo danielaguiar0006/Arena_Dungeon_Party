@@ -4,14 +4,13 @@
  *
  ********************************************************************************************/
 
-#include <iostream>
 #include "raylib.h"
-#include "raymath.h"
-#include "utils/Globals.h"
 #include "entities/Player.h"
 #include "utils/TextureManager.h"
-#include "utils/Grid.h"
 #include "utils/WindowManager.h"
+#include "utils/Globals.h"
+#include "utils/Grid.h"
+#include "utils/Logger.h"
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition
@@ -20,7 +19,7 @@
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-void Update(WindowManager &windowManager, Camera2D &camera, Player &player1, Player &player2);
+void Update(WindowManager &windowManager, Camera2D &camera, Player &player1, Player &player2, Grid &grid);
 void DrawFrame(Camera2D &camera, Player &player1, Player &player2, Grid &grid);
 
 //----------------------------------------------------------------------------------
@@ -35,7 +34,7 @@ int main()
     // TextureManager::GetInstance().GetTexture("assets/textures/player.png");
     // TextureManager::GetInstance().GetTexture("assets/textures/wall.png");
 
-    InitWindow(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT, "raylib [core] example - basic window");
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "raylib [core] example - basic window");
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     // SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE); //! Doesn't seem to work
 
@@ -54,7 +53,7 @@ int main()
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        Update(windowManager, camera, player1, player2);
+        Update(windowManager, camera, player1, player2, grid);
         DrawFrame(camera, player1, player2, grid);
     }
 
@@ -70,8 +69,9 @@ int main()
 //----------------------------------------------------------------------------------
 // Module Functions Definition
 //----------------------------------------------------------------------------------
-void Update(WindowManager &windowManager, Camera2D &camera, Player &player1, Player &player2) // TODO UPDATE TO TAKE ENTITY LIST AS PARAMETER
+void Update(WindowManager &windowManager, Camera2D &camera, Player &player1, Player &player2, Grid &grid) // TODO UPDATE TO TAKE ENTITY LIST AS PARAMETER
 {
+    grid.Update();
     windowManager.Update(camera);
     float deltaTime = GetFrameTime() * TIMESCALE;
 
